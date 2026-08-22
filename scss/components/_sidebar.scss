@@ -61,7 +61,7 @@
         overflow-y: scroll;
         overflow-x: hidden;
         @include mixins.center($flexDirection: column, $alignItems: center, $justifyContent: flex-start);
-        gap: variables.$space-4;
+        gap: variables.$space-3;
 
     }
 
@@ -158,7 +158,8 @@
 
     &__group-header {
         @include mixins.center($justifyContent: space-between);
-        padding: variables.$space-2;
+        padding: variables.$space-1 variables.$space-2;
+        
 
         &:hover .sidebar__group-header__actions,
         &:focus-within .sidebar__group-header__actions {
@@ -288,7 +289,7 @@
 
     &__list {
         @include mixins.center($flexDirection: column, $alignItems: start);
-
+        gap: variables.$space-0;
         list-style: none;
         width: 100%;
 

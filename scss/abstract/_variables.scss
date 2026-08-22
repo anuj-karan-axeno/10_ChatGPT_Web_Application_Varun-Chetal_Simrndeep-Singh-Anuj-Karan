@@ -1,7 +1,7 @@
 // COLORS
 
 $bg-primary: #040000;
-$bg-secondary: #212121;
+$bg-secondary: #232323;
 $bg-tertiary: #2f2f2f;
 $bg-elevated: #303030;
 $bg-hover-1: #202020;
@@ -30,10 +30,10 @@ $success: #22c55e;
 $warning: #f59e0b;
 $danger: #ef4444;
 $error: $danger;
-$info: #3b82f6;
+$info: #264B88;
 
 // Message bubbles
-$user-bubble: #2f2f2f;
+$user-bubble: #173E76;
 $assistant-bg: transparent;
 
 // Overlay
@@ -42,6 +42,7 @@ $overlay: rgba(0, 0, 0, 0.6);
 
 // SPACING
 
+$space-0: 0.125rem; // 2px
 $space-1: 0.25rem; // 4px
 $space-2: 0.5rem; // 8px
 $space-3: 0.75rem; // 12px
@@ -125,6 +126,10 @@ $radii: (
   "lg": 0.75rem,
   // 12px
   "xl": 1rem,
+  // 32px
+  "2xl": 2rem,
+  // 64px
+  "3xl": 4rem,
   // 16px
   "full": 9999px,
 );
@@ -172,4 +177,4 @@ $page-padding-mobile: 1.25rem; // 20px
 
 $sidebar-width: 280px;
 $sidebar-width-collapsed: 64px;
-$composer-max-width: 768px;
+$composer-max-width: 640px;

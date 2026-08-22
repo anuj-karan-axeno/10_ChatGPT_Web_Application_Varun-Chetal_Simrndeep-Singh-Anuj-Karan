@@ -19,6 +19,10 @@
                 pointer-events: auto;
             }
         }
+
+        &--active {
+            background: variables.$bg-hover-1;
+        }
     }
 
     &__chat-title {
@@ -27,6 +31,7 @@
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
+        font-size: variables.font-size('sm')
     }
 
     &__item-actions {

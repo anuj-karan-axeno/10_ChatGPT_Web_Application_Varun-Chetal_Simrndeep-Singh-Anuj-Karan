@@ -56,9 +56,10 @@ document.addEventListener('keydown', (event) => {
     if (event.key === 'Escape') closeActiveMenu();
 });
 
-export function createSidebarItem(convo) {
+export function createSidebarItem(convo, onConversationSelect) {
     const listItem = document.createElement('li');
     listItem.classList.add('sidebar__item');
+    listItem.dataset.conversationId = convo.id;
 
     listItem.innerHTML = `
            <span class="sidebar__chat-title">${convo.chat_title}</span>
@@ -105,6 +106,11 @@ export function createSidebarItem(convo) {
     moreButton.addEventListener('click', (event) => {
         event.stopPropagation();
         openMenu(menu, moreButton);
+    });
+
+    listItem.addEventListener('click', (event) => {
+        if (event.target.closest('button')) return;
+        onConversationSelect(convo);
     });
 
     return listItem;

@@ -1,0 +1,261 @@
+@use '../abstract/mixins' as mixins;
+@use '../abstract/variables' as variables;
+
+.composer {
+    width: 100%;
+    max-width: variables.$composer-max-width;
+    margin: 0 auto;
+    padding: variables.$space-2;
+    background: variables.$bg-secondary;
+    border-radius: variables.radius("2xl");
+    border: 1px solid variables.$border-default;
+
+    &__attachments {
+        @include mixins.center($justifyContent: flex-start);
+        flex-wrap: wrap;
+        gap: variables.$space-2;
+        margin-bottom: variables.$space-2;
+
+        &:empty {
+            display: none;
+        }
+    }
+
+    &__row {
+        @include mixins.center($justifyContent: flex-start);
+        gap: variables.$space-2;
+        width: 100%;
+
+        transition: border-color 0.15s ease;
+
+        &:focus-within {
+            border-color: variables.$border-strong;
+        }
+    }
+
+    &__icon-btn {
+        @include mixins.center;
+        flex-shrink: 0;
+        width: variables.$space-8;
+        height: variables.$space-8;
+        background: transparent;
+        border: 0;
+        border-radius: variables.radius("full");
+        color: variables.$text-primary;
+        cursor: pointer;
+
+        &:hover {
+            background: variables.$bg-hover-1;
+        }
+
+        &:focus-visible {
+            box-shadow: variables.shadow("focus");
+        }
+    }
+
+    &__attach-btn {
+        order: 1;
+    }
+
+    &__textarea {
+        order: 2;
+        flex: 1;
+        min-width: 0;
+        resize: none;
+        overflow-y: hidden;
+        max-height: 200px;
+        background: transparent;
+        border: 0;
+        color: variables.$text-primary;
+        font-family: variables.$font-family-base;
+        font-size: variables.font-size("md");
+        line-height: variables.line-height("normal");
+        padding: variables.$space-2 0;
+
+        &::placeholder {
+            color: variables.$text-tertiary;
+        }
+
+        &:focus {
+            outline: none;
+        }
+    }
+
+    &__model-selector {
+        order: 3;
+        position: relative;
+        flex-shrink: 0;
+    }
+
+    &__model-button {
+        @include mixins.center;
+        gap: variables.$space-1;
+        padding: variables.$space-2 variables.$space-3;
+        background: transparent;
+        border: 0;
+        border-radius: variables.radius("full");
+        color: variables.$text-secondary;
+        font-size: variables.font-size("sm");
+        cursor: pointer;
+        white-space: nowrap;
+
+        &:hover {
+            background: variables.$bg-hover-1;
+            color: variables.$text-primary;
+        }
+
+        &:focus-visible {
+            box-shadow: variables.shadow("focus");
+        }
+    }
+
+    &__model-menu {
+        position: absolute;
+        @include mixins.center($flexDirection:column);
+        gap:  variables.$space-1;
+        right: 0;
+        bottom: calc(100% + #{variables.$space-2});
+        z-index: 2;
+        width: 14rem;
+        padding: variables.$space-2;
+        border: 1px solid variables.$border-default;
+        border-radius: variables.radius("lg");
+        background: variables.$bg-secondary;
+        box-shadow: variables.shadow("md");
+
+        &[hidden] {
+            display: none;
+        }
+    }
+
+    &__model-option {
+        display: block;
+        width: 100%;
+        padding: variables.$space-2;
+        border: 0;
+        border-radius: variables.radius("md");
+        background: transparent;
+        color: variables.$text-primary;
+        text-align: left;
+        cursor: pointer;
+
+        &:hover,
+        &--selected {
+            background: variables.$bg-hover-2;
+        }
+    }
+
+    &__model-option-name,
+    &__model-option-description {
+        display: block;
+    }
+
+    &__model-option-name {
+        font-size: variables.font-size("sm");
+        font-weight: variables.font-weight("medium");
+    }
+
+    &__model-option-description {
+        margin-top: variables.$space-1;
+        color: variables.$text-secondary;
+        font-size: variables.font-size("xs");
+    }
+
+    &__mic-btn {
+        order: 4;
+
+        &--active {
+            color: variables.$error;
+        }
+    }
+
+    &__send-btn {
+        order: 5;
+        @include mixins.center;
+        flex-shrink: 0;
+        padding: variables.$space-2;
+        ;
+        border-radius: variables.radius("full");
+        background: variables.$info;
+        color: variables.$text-primary;
+        border: 0;
+        cursor: pointer;
+        transition: background 0.15s ease;
+
+        &:hover:not(:disabled) {
+            background: variables.$accent-hover;
+        }
+
+        &:disabled {
+
+            cursor: not-allowed;
+        }
+
+        &:focus-visible {
+            box-shadow: variables.shadow("focus");
+        }
+    }
+
+    
+    &.is-generating {
+        .composer__send-btn {
+            background: variables.$text-primary;
+            color: variables.$bg-primary;
+        }
+
+        .composer__textarea {
+            opacity: 0.6;
+        }
+    }
+
+
+    &__attachment-chip {
+        @include mixins.center($justifyContent: flex-start);
+        gap: variables.$space-2;
+        padding: variables.$space-2 variables.$space-3;
+        background: variables.$bg-elevated;
+        border-radius: variables.radius("lg");
+        font-size: variables.font-size("sm");
+        color: variables.$text-primary;
+        border: 1px solid variables.$border-subtle;
+
+        &--uploading {
+            opacity: 0.6;
+
+            .composer__attachment-name::after {
+                content: " · Uploading...";
+                color: variables.$text-tertiary;
+            }
+        }
+
+        &--error {
+            border-color: variables.$error;
+
+            .composer__attachment-name::after {
+                content: " · Failed";
+                color: variables.$error;
+            }
+        }
+    }
+
+    &__attachment-size {
+        color: variables.$text-tertiary;
+        font-size: variables.font-size("xs");
+    }
+
+    &__attachment-remove {
+        @include mixins.center;
+        width: variables.$space-5;
+        height: variables.$space-5;
+        background: transparent;
+        border: 0;
+        border-radius: variables.radius("full");
+        color: variables.$text-tertiary;
+        cursor: pointer;
+
+        &:hover {
+            background: variables.$bg-hover-1;
+            color: variables.$text-primary;
+        }
+    }
+}

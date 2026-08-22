@@ -9,6 +9,8 @@ let navEl;
 let headerActionsEl;
 let mainActionsEl;
 let compactActionsEl;
+let onConversationSelect;
+let onNewChat;
 
 
 const GROUP_ORDER = ["Today", "Yesterday", "Previous 7 days", "Older"];
@@ -26,7 +28,9 @@ const COMPACT_ACTIONS = [
     { icon: 'pin', label: 'Pinned conversations' },
     { icon: 'message_circle', label: 'Conversation history' },
 ];
-export function initSidebar() {
+export function initSidebar(callbacks = {}) {
+    onConversationSelect = callbacks.onConversationSelect;
+    onNewChat = callbacks.onNewChat;
 
     sidebarEl = document.querySelector('.sidebar');
     navEl = document.querySelector('.sidebar__nav');
@@ -45,7 +49,16 @@ export function initSidebar() {
 
 function bindEvents() {
     collapseBtn.addEventListener('click', toggleCollapse);
+    mainActionsEl.addEventListener('click', handleNewChatClick);
+    compactActionsEl.addEventListener('click', handleNewChatClick);
 
+}
+
+function handleNewChatClick(event) {
+    if (!event.target.closest('[data-action="new-chat"]')) return;
+
+    clearSelectedConversation();
+    onNewChat?.();
 }
 
 function renderHeaderActions() {
@@ -63,7 +76,7 @@ function renderHeaderActions() {
 function renderMainActions() {
     mainActionsEl.innerHTML = `
             ${MAIN_ACTIONS.map(({ icon, label }) => `
-                     <li class="sidebar__item">
+                     <li class="sidebar__item" ${label === 'New Chat' ? 'data-action="new-chat"' : ''}>
                      ${AppIcon({ iconName: icon })}
                         <span class="sidebar__chat-title">${label}</span>
                     </li>
@@ -77,7 +90,7 @@ function renderCompactActions() {
        
             ${COMPACT_ACTIONS.map(({ icon, label }) => `
              <li>
-                 <button type="button" class="sidebar__compact-action" aria-label="New chat">
+                 <button type="button" class="sidebar__compact-action" aria-label="${label}" ${label === 'New chat' ? 'data-action="new-chat"' : ''}>
                       ${AppIcon({ iconName: icon })}
                     </button>
             </li>
@@ -92,9 +105,10 @@ function groupByDate(conversations) {
     });
     return groups;
 }
-function renderConversationGroups(conversations) {
+export function renderConversationGroups(conversations, selectedChatId) {
     const groups = groupByDate(conversations);
 
+    document.querySelectorAll('.sidebar__chat-menu').forEach((menu) => menu.remove());
     navEl.innerHTML = '';
 
     GROUP_ORDER.forEach((groupName) => {
@@ -103,6 +117,11 @@ function renderConversationGroups(conversations) {
 
         navEl.appendChild(buildGroupElement(groupName, items));
     });
+
+    if (selectedChatId) {
+        navEl.querySelector(`[data-conversation-id="${selectedChatId}"]`)
+            ?.classList.add('sidebar__item--active');
+    }
 }
 
 function buildGroupElement(groupName, items) {
@@ -113,12 +132,15 @@ function buildGroupElement(groupName, items) {
 
     const listEl = document.createElement('ul');
     listEl.className = 'sidebar__list';
-    items.forEach((convo) => listEl.appendChild(createSidebarItem(convo)));
+    items.forEach((convo) => listEl.appendChild(createSidebarItem(convo, selectConversation)));
 
     groupEl.append(groupHeader, listEl);
 
     const groupToggle = groupHeader.querySelector('.sidebar__group-toggle');
     groupToggle.addEventListener('click', () => toggleGroup(groupEl, listEl, groupToggle));
+
+    groupHeader.querySelector('[data-action="new-chat"]')
+        .addEventListener('click', handleNewChatClick);
 
     return groupEl;
 }
@@ -134,7 +156,7 @@ function buildGroupHeader(groupName) {
             </span>
         </button>
         <div class="sidebar__group-header__actions">
-            <button class="sidebar__group-action" type="button" aria-label="New chat">
+            <button class="sidebar__group-action" type="button" aria-label="New chat" data-action="new-chat">
                 ${AppIcon({ iconName: 'new_chat', strokeWidth: 1.5 })}
             </button>
             <button class="sidebar__group-action" type="button" aria-label="More group options">
@@ -143,6 +165,18 @@ function buildGroupHeader(groupName) {
         </div>
     `;
     return headerEl;
+}
+
+function selectConversation(conversation) {
+    clearSelectedConversation();
+    navEl.querySelector(`[data-conversation-id="${conversation.id}"]`)
+        ?.classList.add('sidebar__item--active');
+    onConversationSelect?.(conversation);
+}
+
+function clearSelectedConversation() {
+    navEl.querySelector('.sidebar__item--active')
+        ?.classList.remove('sidebar__item--active');
 }
 
 function toggleGroup(groupEl, listEl, groupToggle) {

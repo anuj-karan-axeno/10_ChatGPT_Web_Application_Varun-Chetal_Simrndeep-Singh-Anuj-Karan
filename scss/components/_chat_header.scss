@@ -1,0 +1,109 @@
+@use '../abstract/mixins' as mixins;
+@use '../abstract/variables' as variables;
+
+.chat {
+    &__header {
+        padding: variables.$space-2 variables.$space-4;
+        @include mixins.center($justifyContent: space-between);
+        width: 100%;
+    }
+
+    &__title {
+        color: variables.$text-primary;
+        font-size: variables.font-size("lg");
+        font-weight: variables.font-weight("medium");
+
+        @media (max-width:768px) {
+            display: none;
+        }
+    }
+
+    &__header-actions {
+        @include mixins.center;
+        margin-left: auto;
+    }
+
+    &__mobile-navigation {
+        display: none;
+
+        @media (max-width:768px) {
+            @include mixins.center($justifyContent: flex-start);
+            gap: variables.$space-4;
+        }
+    }
+
+    &__menu-button {
+        border: 0;
+        background: transparent;
+        color: variables.$text-primary;
+    }
+
+    &__model-button {
+        @include mixins.center;
+        gap: variables.$space-2;
+        padding: 0;
+        border: 0;
+        background: transparent;
+        color: variables.$text-primary;
+        font-size: variables.font-size("sm");
+        font-weight: variables.font-weight("semibold");
+        cursor: pointer;
+    }
+
+    &__upgrade-button,
+    &__share-button,
+    &__account-button {
+        @include mixins.center;
+        border: 0;
+        background: transparent;
+        cursor: pointer;
+        color: variables.$text-primary;
+        font-size: variables.font-size("base");
+        font-weight: variables.font-weight("semibold");
+        gap: variables.$space-2 ;
+        padding: variables.$space-2 variables.$space-4;
+        border-radius: variables.radius('md');
+
+        &:hover {
+            background: variables.$bg-hover-1;
+        }
+
+        @media (max-width:768px) {
+
+            padding: variables.$space-2;
+        }
+    }
+
+    &__upgrade-button {
+        color: variables.$info;
+
+
+
+
+        &:focus-visible {
+            outline: none;
+            box-shadow: variables.shadow("focus");
+            border-radius: variables.radius("md");
+        }
+    }
+
+    &__share-button {
+        &[hidden] {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .chat__share-text {
+                display: none;
+            }
+        }
+
+        &:focus-visible {
+            outline: none;
+            box-shadow: variables.shadow("focus");
+            border-radius: variables.radius("md");
+        }
+    }
+
+
+}

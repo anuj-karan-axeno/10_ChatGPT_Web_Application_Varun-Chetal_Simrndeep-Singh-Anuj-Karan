@@ -1,0 +1,159 @@
+@use '../abstract/mixins' as mixins;
+@use '../abstract/variables' as variables;
+
+.chat {
+    &__messages {
+        display: grid;
+        max-width: variables.$composer-max-width;
+        margin: 0 auto;
+        padding: variables.$space-6 0 (variables.$space-20 + variables.$space-20 + variables.$space-16);
+    }
+
+    &__message {
+        width: fit-content;
+        height: fit-content;
+        border-radius: variables.radius("2xl");
+        color: variables.$text-primary;
+        font-size: variables.font-size("md");
+        line-height: variables.line-height("normal");
+        
+        &--user {
+            max-width: 70%;
+            margin-left: auto;
+            background: variables.$user-bubble;
+            padding: variables.$space-3 variables.$space-4;
+
+            .chat__message-content {
+                max-height: 17rem;
+                overflow: hidden;
+            }
+        }
+
+        &--expanded {
+            .chat__message-content {
+                max-height: none;
+            }
+        }
+        
+        &--assistant {
+            width: 100%;
+            max-width: none;
+            background: variables.$assistant-bg;
+            padding: variables.$space-0;
+        }
+    }
+
+    &__message-wrapper {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        gap: variables.$space-1;
+
+        &:hover .chat__message-actions,
+        &:focus-within .chat__message-actions {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        &--user {
+            align-items: flex-end;
+        }
+
+        &--assistant {
+            align-items: flex-start;
+        }
+    }
+
+    &__message-actions {
+       @include mixins.center;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.15s ease;
+
+        @media (max-width:768px) {
+            opacity: 1;
+        }
+        &--user {
+            padding-right: variables.$space-1;
+        }
+
+        &--assistant {
+            opacity: 1;
+            pointer-events: auto;
+        }
+    }
+
+    &__message-show-more {
+        @include mixins.center($justifyContent: flex-start);
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        gap: variables.$space-1;
+        padding: variables.$space-1 0;
+        border: 0;
+        background: variables.$user-bubble;
+        color: variables.$text-secondary;
+        font-size: variables.font-size("sm");
+        font-weight: variables.font-weight("semibold");
+        box-shadow: 0 -0.8rem 1rem .5rem variables.$user-bubble;
+        cursor: pointer;
+
+        &:hover {
+            color: variables.$text-primary;
+        }
+        
+        &--expanded {
+            box-shadow: none;
+            padding-top: variables.$space-4 ;
+
+        }
+    }
+
+    &__message-action {
+        @include mixins.center;
+        position: relative;
+        padding: variables.$space-2;
+       
+        border: 0;
+        border-radius: variables.radius("md");
+        background: transparent;
+        color: variables.$text-secondary;
+        cursor: pointer;
+
+        &:hover {
+            background: variables.$bg-hover-1;
+            color: variables.$text-primary;
+        }
+
+        &::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            z-index: 2;
+            top: calc(100% + #{variables.$space-2});
+            left: 50%;
+            width: max-content;
+            max-width: 12rem;
+            padding: variables.$space-2 variables.$space-3;
+            border-radius: variables.radius("full");
+            background: variables.$bg-elevated;
+            color: variables.$text-primary;
+            font-size: variables.font-size("sm");
+            font-weight: variables.font-weight("medium");
+            pointer-events: none;
+            opacity: 0;
+            transform: translateX(-50%);
+            transition: opacity 0.15s ease;
+            white-space: nowrap;
+        }
+
+        &:hover::after,
+        &:focus-visible::after {
+            opacity: 1;
+        }
+
+        &:focus-visible {
+            outline: none;
+            box-shadow: variables.shadow("focus");
+        }
+    }
+}
