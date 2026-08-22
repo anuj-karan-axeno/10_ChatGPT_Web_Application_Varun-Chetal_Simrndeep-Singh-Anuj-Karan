@@ -1,0 +1,302 @@
+@use '../abstract/mixins' as mixins;
+@use '../abstract/variables' as variables;
+@use './sidebar-item';
+
+
+.sidebar {
+
+    background: variables.$bg-primary;
+    width: variables.$sidebar-width;
+    flex-shrink: 0;
+
+    @include mixins.center($flexDirection: column, $alignItems: start, $justifyContent: flex-start);
+    border-right: 1px solid variables.$border-subtle;
+    transition: .25s ease;
+
+
+    &--collapsed {
+        width: variables.$sidebar-width-collapsed;
+        align-items: center;
+
+        .sidebar__scrollable-container {
+            overflow-y: hidden;
+        }
+
+
+        .sidebar__logo,
+        .sidebar__search-btn,
+        .sidebar__main-action,
+        .sidebar__group-title,
+        .sidebar__chat-title,
+        .sidebar__item-actions,
+        .sidebar__nav,
+        .sidebar__footer-details,
+        .sidebar__footer-upgrade {
+            display: none;
+        }
+
+        .sidebar__footer {
+            justify-content: center;
+        }
+
+        .sidebar__header {
+            flex-direction: column;
+            padding: variables.$space-2;
+
+        }
+
+
+
+        .sidebar__compact-actions {
+            display: flex;
+        }
+
+
+    }
+
+    &__scrollable-container {
+        padding: variables.$space-2;
+        flex: 1;
+        width: 100%;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        @include mixins.center($flexDirection: column, $alignItems: center, $justifyContent: flex-start);
+        gap: variables.$space-4;
+
+    }
+
+    &__footer {
+        @include mixins.center($justifyContent: space-between);
+        width: 100%;
+        padding: variables.$space-3;
+        border-top: 1px solid variables.$border-subtle;
+        flex-shrink: 0;
+    }
+
+    &__footer-account {
+        @include mixins.center($justifyContent: flex-start);
+        gap: variables.$space-3;
+        min-width: 0;
+    }
+
+    &__footer-avatar {
+        @include mixins.center($alignItems: flex-start);
+        width: variables.$space-6;
+        height: variables.$space-6;
+        flex-shrink: 0;
+        border-radius: variables.radius("full");
+        background: variables.$info;
+        color: variables.$text-primary;
+        font-size: variables.font-size("sm");
+        font-weight: variables.font-weight("medium");
+    }
+
+    &__footer-details {
+        @include mixins.center($flexDirection: column, $alignItems: flex-start);
+        min-width: 0;
+    }
+
+    &__footer-name {
+        color: variables.$text-primary;
+        font-size: variables.font-size("sm");
+        font-weight: variables.font-weight("base");
+    }
+
+    &__footer-plan {
+        color: variables.$text-secondary;
+        font-size: variables.font-size("xs");
+    }
+
+    &__footer-upgrade {
+        padding: variables.$space-2 variables.$space-4;
+        border: 1px solid variables.$border-strong;
+        border-radius: variables.radius("full");
+        background: variables.$bg-tertiary;
+        color: variables.$text-primary;
+        font-size: variables.font-size("xs");
+        font-weight: variables.font-weight("medium");
+        cursor: pointer;
+
+        &:hover {
+            background: variables.$bg-hover-2;
+        }
+
+        &:focus-visible {
+            box-shadow: variables.shadow("focus");
+        }
+    }
+
+    &__header {
+        @include mixins.center($justifyContent: space-between);
+        width: 100%;
+        padding: variables.$space-2 variables.$space-4;
+
+    }
+
+    &__logo {
+        font-size: variables.font-size("lg");
+        font-weight: variables.font-weight("bold");
+        color: variables.$text-primary;
+    }
+
+    &__header-actions {
+        @include mixins.center;
+    }
+
+    &__compact-actions {
+        @include mixins.center($flexDirection: column);
+        display: none;
+    }
+
+    &__nav {
+        @include mixins.center($flexDirection: column);
+
+        width: 100%;
+        gap: variables.$space-2;
+
+    }
+
+    &__group-header {
+        @include mixins.center($justifyContent: space-between);
+        padding: variables.$space-2;
+
+        &:hover .sidebar__group-header__actions,
+        &:focus-within .sidebar__group-header__actions {
+            opacity: 1;
+            pointer-events: auto;
+        }
+    }
+
+    &__group-toggle {
+        @include mixins.center($justifyContent: flex-start);
+        gap: variables.$space-1;
+
+
+        border: 0;
+        background: transparent;
+        color: variables.$text-tertiary;
+        cursor: pointer;
+
+
+
+        &:focus-visible {
+            box-shadow: variables.shadow("focus");
+        }
+
+    }
+
+    &__group-toggle-icon {
+        @include mixins.center;
+        transition: transform 0.2s ease;
+    }
+
+    &__group-header__actions {
+        @include mixins.center;
+        gap: variables.$space-2;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.15s ease;
+    }
+
+    &__group-action {
+        @include mixins.center;
+
+        border: 0;
+        border-radius: variables.radius("sm");
+        background: transparent;
+        color: variables.$text-tertiary;
+        cursor: pointer;
+
+        &:hover {
+
+            color: variables.$text-primary;
+        }
+
+        &:focus-visible {
+            box-shadow: variables.shadow("focus");
+        }
+
+    }
+
+    &__icon-btn {
+        @include mixins.center;
+        background: transparent;
+        border: 0;
+        color: variables.$text-primary;
+        padding: variables.$space-2;
+        border-radius: variables.radius("md");
+        cursor: pointer;
+
+        &:hover {
+            background: variables.$bg-hover-1;
+
+        }
+
+        &:focus-visible {
+            box-shadow: variables.shadow("focus");
+        }
+    }
+
+    &__compact-action {
+        @include mixins.center;
+        background: transparent;
+        border: 0;
+        color: variables.$text-primary;
+        padding: variables.$space-2;
+        border-radius: variables.radius("md");
+        cursor: pointer;
+
+        &:hover {
+            background: variables.$bg-hover-1;
+        }
+
+        &:focus-visible {
+            box-shadow: variables.shadow("focus");
+        }
+    }
+
+
+
+    &__main-action__btn {
+        @include mixins.center($justifyContent: flex-start);
+        @include mixins.sidebar-action;
+        gap: variables.$space-2;
+        background: variables.$bg-tertiary;
+        border: 0;
+        color: variables.$text-primary;
+
+        &:hover {
+            background: variables.$bg-hover-1;
+        }
+    }
+
+    &__group {
+        width: 100%;
+
+        &--collapsed .sidebar__group-toggle-icon {
+            transform: rotate(-90deg);
+        }
+
+
+    }
+
+    &__group-title {
+        color: currentColor;
+        font-size: variables.font-size('sm');
+        font-weight: variables.font-weight('medium');
+    }
+
+    &__list {
+        @include mixins.center($flexDirection: column, $alignItems: start);
+
+        list-style: none;
+        width: 100%;
+
+        &[hidden] {
+            display: none;
+        }
+
+    }
+
+
+}

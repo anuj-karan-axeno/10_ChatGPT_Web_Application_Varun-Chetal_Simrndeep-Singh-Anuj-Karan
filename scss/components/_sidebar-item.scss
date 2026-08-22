@@ -1,0 +1,112 @@
+@use '../abstract/mixins' as mixins;
+@use '../abstract/variables' as variables;
+
+.sidebar {
+    &__item {
+        position: relative;
+        @include mixins.center($justifyContent: space-between);
+        @include mixins.sidebar-action;
+        gap: variables.$space-2;
+        color: variables.$text-primary;
+
+
+        &:hover,
+        &:focus-within {
+            background: variables.$bg-hover-1;
+
+            .sidebar__item-actions {
+                opacity: 1;
+                pointer-events: auto;
+            }
+        }
+    }
+
+    &__chat-title {
+        flex: 1;
+        min-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    &__item-actions {
+        @include mixins.center;
+        gap: variables.$space-2;
+        flex-shrink: 0;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.15s ease;
+
+        &:focus-within {
+            opacity: 1;
+            pointer-events: auto;
+        }
+    }
+
+    &__pin-btn,
+    &__more-btn {
+        @include mixins.center;
+        background: transparent;
+        border: 0;
+        color: variables.$text-primary;
+        border-radius: variables.radius("sm");
+        cursor: pointer;
+
+        &:hover {
+            background: variables.$bg-hover-1;
+        }
+
+        &:focus-visible {
+            box-shadow: variables.shadow("focus");
+        }
+    }
+
+    &__pin-btn {
+        transform: rotate(45deg);
+    }
+
+    &__chat-menu {
+        position: fixed;
+        background: variables.$bg-secondary;
+        list-style: none;
+        z-index: 1000;
+        overflow: hidden;
+        border-radius: variables.radius("xl");
+        padding: variables.$space-2;
+        @include mixins.center($flexDirection: column);
+
+        &[hidden] {
+            display: none;
+        }
+
+        &-item {
+            width: 100%;
+        }
+
+        &-button {
+            @include mixins.center($justifyContent: flex-start);
+            gap: variables.$space-2;
+            padding: variables.$space-2;
+            width: 100%;
+            border-radius: variables.radius("md");
+            border: 0;
+            background: transparent;
+            color: variables.$text-primary;
+            text-align: left;
+            cursor: pointer;
+
+            &:hover {
+                background-color: variables.$bg-hover-2;
+            }
+
+            &--delete {
+                color: variables.$danger;
+            }
+        }
+
+        &-icon {
+            @include mixins.center;
+            flex-shrink: 0;
+        }
+    }
+}

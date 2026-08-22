@@ -1,0 +1,9 @@
+@use '../abstract/mixins' as mixins;
+@use '../abstract/variables' as variables;
+
+.chat {
+    background: variables.$bg-primary;
+    flex: 1;
+    border-right: 1px solid variables.$border-subtle;
+
+}

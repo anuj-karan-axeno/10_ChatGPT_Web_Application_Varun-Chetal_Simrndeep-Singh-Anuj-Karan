@@ -1,0 +1,18 @@
+@use './variables' as variables;
+
+@mixin center($flexDirection: row, $justifyContent: center, $alignItems: center) {
+    display: flex;
+    flex-direction: $flexDirection;
+    justify-content: $justifyContent;
+    align-items: $alignItems;
+}
+
+@mixin sidebar-action {
+    padding: variables.$space-2 variables.$space-2;
+    font-size: variables.font-size("sm");
+    font-weight: variables.font-weight('base');
+    border-radius: variables.radius("lg");
+    width: 100%;
+    cursor: pointer;
+    transition: background 0.15s ease;
+}
