@@ -1,6 +1,7 @@
 @use '../abstract/mixins' as mixins;
 @use '../abstract/variables' as variables;
 @use './sidebar-item';
+@use './sidebar-footer';
 
 
 .sidebar {
@@ -65,66 +66,7 @@
 
     }
 
-    &__footer {
-        @include mixins.center($justifyContent: space-between);
-        width: 100%;
-        padding: variables.$space-3;
-        border-top: 1px solid variables.$border-subtle;
-        flex-shrink: 0;
-    }
 
-    &__footer-account {
-        @include mixins.center($justifyContent: flex-start);
-        gap: variables.$space-3;
-        min-width: 0;
-    }
-
-    &__footer-avatar {
-        @include mixins.center($alignItems: flex-start);
-        width: variables.$space-6;
-        height: variables.$space-6;
-        flex-shrink: 0;
-        border-radius: variables.radius("full");
-        background: variables.$info;
-        color: variables.$text-primary;
-        font-size: variables.font-size("sm");
-        font-weight: variables.font-weight("medium");
-    }
-
-    &__footer-details {
-        @include mixins.center($flexDirection: column, $alignItems: flex-start);
-        min-width: 0;
-    }
-
-    &__footer-name {
-        color: variables.$text-primary;
-        font-size: variables.font-size("sm");
-        font-weight: variables.font-weight("base");
-    }
-
-    &__footer-plan {
-        color: variables.$text-secondary;
-        font-size: variables.font-size("xs");
-    }
-
-    &__footer-upgrade {
-        padding: variables.$space-2 variables.$space-4;
-        border: 1px solid variables.$border-strong;
-        border-radius: variables.radius("full");
-        background: variables.$bg-tertiary;
-        color: variables.$text-primary;
-        font-size: variables.font-size("xs");
-        font-weight: variables.font-weight("medium");
-        cursor: pointer;
-
-        &:hover {
-            background: variables.$bg-hover-2;
-        }
-
-        &:focus-visible {
-            box-shadow: variables.shadow("focus");
-        }
-    }
 
     &__header {
         @include mixins.center($justifyContent: space-between);
@@ -159,7 +101,9 @@
     &__group-header {
         @include mixins.center($justifyContent: space-between);
         padding: variables.$space-1 variables.$space-2;
-        
+
+        gap: variables.$space-2;
+
 
         &:hover .sidebar__group-header__actions,
         &:focus-within .sidebar__group-header__actions {
@@ -171,8 +115,8 @@
     &__group-toggle {
         @include mixins.center($justifyContent: flex-start);
         gap: variables.$space-1;
-
-
+        width: 100%;
+        border-radius: variables.radius('lg');
         border: 0;
         background: transparent;
         color: variables.$text-tertiary;
@@ -180,9 +124,7 @@
 
 
 
-        &:focus-visible {
-            box-shadow: variables.shadow("focus");
-        }
+
 
     }
 
@@ -190,7 +132,7 @@
         @include mixins.center;
         transition: transform 0.2s ease;
     }
-
+    
     &__group-header__actions {
         @include mixins.center;
         gap: variables.$space-2;
@@ -198,10 +140,10 @@
         pointer-events: none;
         transition: opacity 0.15s ease;
     }
-
+    
     &__group-action {
         @include mixins.center;
-
+        padding: variables.$space-1;
         border: 0;
         border-radius: variables.radius("sm");
         background: transparent;
@@ -213,9 +155,7 @@
             color: variables.$text-primary;
         }
 
-        &:focus-visible {
-            box-shadow: variables.shadow("focus");
-        }
+
 
     }
 
@@ -233,9 +173,7 @@
 
         }
 
-        &:focus-visible {
-            box-shadow: variables.shadow("focus");
-        }
+
     }
 
     &__compact-action {
@@ -251,9 +189,7 @@
             background: variables.$bg-hover-1;
         }
 
-        &:focus-visible {
-            box-shadow: variables.shadow("focus");
-        }
+
     }
 
 

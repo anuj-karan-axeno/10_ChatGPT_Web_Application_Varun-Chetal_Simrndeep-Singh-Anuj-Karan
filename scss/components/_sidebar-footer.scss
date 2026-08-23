@@ -1,0 +1,117 @@
+@use '../abstract/mixins' as mixins;
+@use '../abstract/variables' as variables;
+
+.sidebar__footer {
+    @include mixins.center($justifyContent: space-between);
+    width: 100%;
+    padding: variables.$space-2;
+    border-top: 1px solid variables.$border-subtle;
+    flex-shrink: 0;
+    position: relative;
+
+
+    &-account {
+        @include mixins.center($justifyContent: space-between);
+        gap: variables.$space-3;
+        padding: variables.$space-2;
+        border-radius: variables.radius('lg');
+        width: 100%;
+
+        &:hover {
+            background: variables.$bg-hover-1;
+            cursor: pointer;
+        }
+    }
+
+    &-info {
+        @include mixins.center();
+        gap: variables.$space-2;
+
+    }
+
+    &-avatar {
+        @include mixins.center($alignItems: flex-start);
+        width: variables.$space-6;
+        height: variables.$space-6;
+        flex-shrink: 0;
+        border-radius: variables.radius("full");
+        background: variables.$info;
+        color: variables.$text-primary;
+        font-size: variables.font-size("sm");
+        font-weight: variables.font-weight("medium");
+    }
+
+    &-details {
+        @include mixins.center($flexDirection: column, $alignItems: flex-start);
+        min-width: 0;
+    }
+
+    &-name {
+        color: variables.$text-primary;
+        font-size: variables.font-size("sm");
+        font-weight: variables.font-weight("base");
+    }
+
+    &-plan {
+        color: variables.$text-secondary;
+        font-size: variables.font-size("xs");
+    }
+
+    &-upgrade {
+        padding: variables.$space-2 variables.$space-3;
+        border: 1px solid variables.$border-strong;
+        border-radius: variables.radius("full");
+        background: variables.$bg-secondary;
+        color: variables.$text-primary;
+        font-size: variables.font-size("xs");
+        font-weight: variables.font-weight("semibold");
+        cursor: pointer;
+
+        &:hover {
+            background: variables.$bg-hover-2;
+        }
+
+
+    }
+
+    &-menu {
+        position: absolute;
+        background-color: variables.$bg-tertiary;
+        width: 90%;
+        left: auto;
+        bottom: 100%;
+        border-radius: variables.radius('xl');
+        padding: variables.$space-2;
+        
+        &__list {
+            @include mixins.center($justifyContent: start);
+            gap: variables.$space-2;
+            width: 100%;
+            color: variables.$text-primary;
+            padding: variables.$space-2;
+            border-radius: variables.radius('lg');
+            font-size: variables.font-size('sm');
+            cursor: pointer;
+
+            &:hover {
+
+                background-color: variables.$border-strong;
+            }
+
+            &-account{
+                justify-content: space-between;
+            }
+        }
+
+        &__separator{
+            border-color: variables.$border-subtle;
+            margin: variables.$space-2 0;
+        }
+
+        &--hide{
+            display: none;
+        }
+
+       
+    }
+}

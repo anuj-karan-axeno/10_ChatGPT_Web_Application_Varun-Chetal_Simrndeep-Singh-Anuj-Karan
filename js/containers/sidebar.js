@@ -1,7 +1,9 @@
 import { mockConversations } from '../constant/mockConvoData.js';
 import { getConversationGroup } from '../utils/dateGroup.js'
 import { createSidebarItem } from '../components/sidebar_items.js'
+import { openSearchModal } from '../components/search_modal.js';
 import { AppIcon } from '../utils/app_icon.js';
+import {renderSidebarFooterMenu} from '../components/sidebar_footer.js'
 
 let sidebarEl;
 let collapseBtn;
@@ -23,8 +25,8 @@ const MAIN_ACTIONS = [
     { icon: 'horizontal_3_dots', label: 'More' },
 ];
 const COMPACT_ACTIONS = [
-    { icon: 'new_chat', label: 'New chat' },
-    { icon: 'search', label: 'Search conversations' },
+    { icon: 'new_chat', label: 'New chat', action: 'new-chat' },
+    { icon: 'search', label: 'Search conversations', action: 'search' },
     { icon: 'pin', label: 'Pinned conversations' },
     { icon: 'message_circle', label: 'Conversation history' },
 ];
@@ -43,15 +45,22 @@ export function initSidebar(callbacks = {}) {
     renderMainActions()
     renderCompactActions()
     renderConversationGroups(mockConversations)
+    renderSidebarFooterMenu()
 
     bindEvents();
 }
 
 function bindEvents() {
     collapseBtn.addEventListener('click', toggleCollapse);
+    headerActionsEl.querySelector('.sidebar__search-btn').addEventListener('click', openSearch);
+    compactActionsEl.querySelector('.sidebar__compact-action--search').addEventListener('click', openSearch);
     mainActionsEl.addEventListener('click', handleNewChatClick);
     compactActionsEl.addEventListener('click', handleNewChatClick);
 
+}
+
+function openSearch() {
+    openSearchModal(mockConversations, selectConversation);
 }
 
 function handleNewChatClick(event) {
@@ -88,9 +97,9 @@ function renderMainActions() {
 function renderCompactActions() {
     compactActionsEl.innerHTML = `
        
-            ${COMPACT_ACTIONS.map(({ icon, label }) => `
+            ${COMPACT_ACTIONS.map(({ icon, label, action }) => `
              <li>
-                 <button type="button" class="sidebar__compact-action" aria-label="${label}" ${label === 'New chat' ? 'data-action="new-chat"' : ''}>
+                 <button type="button" class="sidebar__compact-action${action ? ` sidebar__compact-action--${action}` : ''}" aria-label="${label}" ${action === 'new-chat' ? 'data-action="new-chat"' : ''}>
                       ${AppIcon({ iconName: icon })}
                     </button>
             </li>
@@ -175,8 +184,8 @@ function selectConversation(conversation) {
 }
 
 function clearSelectedConversation() {
-    navEl.querySelector('.sidebar__item--active')
-        ?.classList.remove('sidebar__item--active');
+    const active_sidebar_item = navEl.querySelector('.sidebar__item--active')
+    active_sidebar_item?.classList.remove('sidebar__item--active');
 }
 
 function toggleGroup(groupEl, listEl, groupToggle) {

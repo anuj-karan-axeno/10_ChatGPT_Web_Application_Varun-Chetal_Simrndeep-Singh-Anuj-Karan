@@ -65,11 +65,11 @@ export function createSidebarItem(convo, onConversationSelect) {
            <span class="sidebar__chat-title">${convo.chat_title}</span>
                             <div class="sidebar__item-actions">
                                 <button class="sidebar__pin-btn" aria-label="Pin conversation" aria-pressed="false">
-                                    ${AppIcon({ iconName: 'pin', strokeWidth: 1.2 })}
+                                    ${AppIcon({ iconName: 'pin', strokeWidth: 1.2, size:16 })}
                                 </button>
                                 <button class="sidebar__more-btn" aria-label="More options for ${convo.chat_title}"
                                     aria-haspopup="true" aria-controls="sidebar-menu-${convo.id}" aria-expanded="false">
-                                   ${AppIcon({ iconName: 'horizontal_3_dots', strokeWidth: 1.2 })}
+                                   ${AppIcon({ iconName: 'horizontal_3_dots', strokeWidth: 1.2,size:16 })}
                                 </button>
 
                                 <ul class="sidebar__chat-menu" id="sidebar-menu-${convo.id}" hidden>

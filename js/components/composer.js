@@ -10,7 +10,7 @@ let modelMenu;
 let fileInputEl;
 let onSendMessage;
 
-const MAX_TEXTAREA_HEIGHT = 200; // px
+const MAX_TEXTAREA_HEIGHT = 200;
 const MODELS = [
     { name: 'GPT-5 nano', description: 'Fastest and lowest cost' },
     { name: 'GPT-5 mini', description: 'Fast and cost-efficient' },
@@ -22,10 +22,10 @@ export function initComposer(callbacks = {}) {
      composerEl = document.querySelector('.composer');
 
     renderComposer();
+
     bindEvents();
 }
 
-   
 
 function renderComposer() {
     composerEl.innerHTML = `
@@ -119,8 +119,6 @@ function handleKeydown(e) {
     }
 }
 
-// ---- Submit / send ----
-
 function handleSubmit(e) {
     e.preventDefault();
 
@@ -130,6 +128,7 @@ function handleSubmit(e) {
     onSendMessage?.(message);
 
     textareaEl.value = '';
+
     autoGrow();
     toggleSendButton();
 }

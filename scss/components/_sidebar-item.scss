@@ -55,15 +55,14 @@
         border: 0;
         color: variables.$text-primary;
         border-radius: variables.radius("sm");
+        padding: variables.$space-0;
         cursor: pointer;
 
         &:hover {
             background: variables.$bg-hover-1;
         }
 
-        &:focus-visible {
-            box-shadow: variables.shadow("focus");
-        }
+       
     }
 
     &__pin-btn {

@@ -16,6 +16,103 @@ const MESSAGE_ACTIONS = {
     ],
 };
 
+function addAssistantBlocks(messageContentEl, blocks) {
+    blocks.forEach((block) => {
+        if (block.type === 'paragraph') {
+            const paragraph = document.createElement('p');
+            paragraph.className = 'chat__paragraph';
+            paragraph.textContent = block.text;
+            messageContentEl.append(paragraph);
+        }
+
+        if (block.type === 'list') {
+            const list = document.createElement(block.ordered ? 'ol' : 'ul');
+            list.className = 'chat__list';
+
+            block.items.forEach((item) => {
+                const listItem = document.createElement('li');
+                listItem.className = 'chat__list-item';
+                listItem.textContent = item;
+                list.append(listItem);
+            });
+
+            messageContentEl.append(list);
+        }
+
+        if (block.type === 'code') {
+            const codeContainer = document.createElement('div');
+            codeContainer.className = 'chat__code-container';
+
+            const codeHeader = document.createElement('div');
+            codeHeader.className = 'chat__code-header';
+
+            const languageLabel = document.createElement('span');
+            languageLabel.className = 'chat__code-language';
+            languageLabel.textContent = block.language || 'code';
+
+            const copyCodeButton = document.createElement('button');
+            copyCodeButton.className = 'chat__code-copy-button';
+            copyCodeButton.type = 'button';
+            copyCodeButton.setAttribute('aria-label', 'Copy code');
+            copyCodeButton.dataset.tooltip = 'Copy code';
+            copyCodeButton.innerHTML = AppIcon({ iconName: 'copy', size: 16 });
+
+            copyCodeButton.addEventListener('click', async () => {
+                await navigator.clipboard.writeText(block.code);
+                copyCodeButton.innerHTML = AppIcon({ iconName: 'check', size: 16 });
+                copyCodeButton.dataset.tooltip = 'Copied';
+
+                setTimeout(() => {
+                    copyCodeButton.innerHTML = AppIcon({ iconName: 'copy', size: 16 });
+                    copyCodeButton.dataset.tooltip = 'Copy code';
+                }, 1000);
+            });
+
+            codeHeader.append(languageLabel, copyCodeButton);
+
+            const codeBlock = document.createElement('pre');
+            codeBlock.className = 'chat__code-block';
+            codeBlock.textContent = block.code;
+
+            codeContainer.append(codeHeader, codeBlock);
+            messageContentEl.append(codeContainer);
+        }
+
+        if (block.type === 'table') {
+            const tableWrapper = document.createElement('div');
+            tableWrapper.className = 'chat__table-wrapper';
+
+            const table = document.createElement('table');
+            table.className = 'chat__table';
+
+            const headerRow = document.createElement('tr');
+            headerRow.className = 'chat__table-row';
+            block.headers.forEach((header) => {
+                const headerCell = document.createElement('th');
+                headerCell.className = 'chat__table-header';
+                headerCell.textContent = header;
+                headerRow.append(headerCell);
+            });
+            table.append(headerRow);
+
+            block.rows.forEach((row) => {
+                const tableRow = document.createElement('tr');
+                tableRow.className = 'chat__table-row';
+                row.forEach((cell) => {
+                    const tableCell = document.createElement('td');
+                    tableCell.className = 'chat__table-cell';
+                    tableCell.textContent = cell;
+                    tableRow.append(tableCell);
+                });
+                table.append(tableRow);
+            });
+
+            tableWrapper.append(table);
+            messageContentEl.append(tableWrapper);
+        }
+    });
+}
+
 export function createMessages(messages) {
     const messagesEl = document.createElement('section');
     messagesEl.className = 'chat__messages';
@@ -30,7 +127,11 @@ export function createMessages(messages) {
 
         const messageContentEl = document.createElement('div');
         messageContentEl.className = 'chat__message-content';
-        messageContentEl.textContent = content;
+        if (role === 'assistant' && Array.isArray(content)) {
+            addAssistantBlocks(messageContentEl, content);
+        } else {
+            messageContentEl.textContent = content;
+        }
         messageEl.append(messageContentEl);
 
         const actionsEl = document.createElement('div');
@@ -51,7 +152,7 @@ export function createMessages(messages) {
 
         const copyButton = actionsEl.querySelector('.chat__message-action--copy');
         copyButton.addEventListener('click', async () => {
-            await navigator.clipboard.writeText(content);
+            await navigator.clipboard.writeText(messageContentEl.innerText);
             copyButton.innerHTML = AppIcon({ iconName: 'check',  size:16});
             copyButton.setAttribute('aria-label', 'Copied');
             copyButton.dataset.tooltip = 'Copied';

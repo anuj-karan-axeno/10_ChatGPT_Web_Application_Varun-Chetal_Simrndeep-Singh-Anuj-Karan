@@ -6,7 +6,7 @@
         display: grid;
         max-width: variables.$composer-max-width;
         margin: 0 auto;
-        padding: variables.$space-6 0 (variables.$space-20 + variables.$space-20 + variables.$space-16);
+        padding: variables.$space-6 0 variables.$space-30 ;
     }
 
     &__message {
@@ -16,7 +16,12 @@
         color: variables.$text-primary;
         font-size: variables.font-size("md");
         line-height: variables.line-height("normal");
-        
+
+        &-content {
+            @include mixins.center($flexDirection: column, $alignItems: flex-start);
+            gap: variables.$space-4;
+        }
+
         &--user {
             max-width: 70%;
             margin-left: auto;
@@ -34,7 +39,7 @@
                 max-height: none;
             }
         }
-        
+
         &--assistant {
             width: 100%;
             max-width: none;
@@ -65,7 +70,7 @@
     }
 
     &__message-actions {
-       @include mixins.center;
+        @include mixins.center;
         opacity: 0;
         pointer-events: none;
         transition: opacity 0.15s ease;
@@ -73,6 +78,7 @@
         @media (max-width:768px) {
             opacity: 1;
         }
+
         &--user {
             padding-right: variables.$space-1;
         }
@@ -81,6 +87,106 @@
             opacity: 1;
             pointer-events: auto;
         }
+    }
+
+    &__paragraph,
+    &__list,
+    &__table,
+    &__code-block {
+        width: 100%;
+    }
+
+    &__list {
+        padding-left: variables.$space-6;
+    }
+
+    &__list-item {
+        margin-top: variables.$space-1;
+    }
+
+    &__code-block {
+        margin: 0;
+        margin-top: 0;
+        overflow-x: auto;
+        color: variables.$text-primary;
+        font-family: variables.$font-family-mono;
+        font-size: variables.font-size("sm");
+        white-space: pre-wrap;
+    }
+
+    &__code-container {
+        width: 100%;
+        overflow: hidden;
+        border-radius: variables.radius("xl");
+
+        background: variables.$bg-secondary;
+
+        padding: variables.$space-4;
+
+    }
+
+    &__code-header {
+        @include mixins.center($justifyContent: space-between);
+        border-radius: 0;
+    }
+
+    &__code-language {
+        color: variables.$text-primary;
+        font-family: variables.$font-family-mono;
+        font-size: variables.font-size("md");
+        font-weight: variables.font-weight("medium");
+        text-transform: uppercase;
+    }
+
+    &__code-copy-button {
+        @include mixins.center;
+        padding: variables.$space-3;
+        border: 0;
+        border-radius: variables.radius("2xl");
+        background: transparent;
+        color: variables.$text-primary;
+        cursor: pointer;
+
+        &:hover {
+            background: variables.$bg-hover-2;
+
+        }
+    }
+
+    &__table {
+        border-collapse: collapse;
+    }
+
+    &__table-wrapper {
+        width: 100%;
+        overflow-x: auto;
+        border-radius: variables.radius("md");
+    }
+
+    &__table-header,
+    &__table-cell {
+        padding: variables.$space-2;
+        text-align: left;
+
+    }
+
+    &__table-row {
+        border-bottom: 1px solid variables.$border-subtle;
+
+        &:last-child {
+            border-bottom: 0;
+        }
+    }
+
+    &__table-header {
+        font-weight: variables.font-weight("semibold");
+    }
+
+
+    &__table-cell {
+        font-size: variables.font-size('sm');
+        
+        
     }
 
     &__message-show-more {
@@ -101,7 +207,7 @@
         &:hover {
             color: variables.$text-primary;
         }
-        
+
         &--expanded {
             box-shadow: none;
             padding-top: variables.$space-4 ;
@@ -113,7 +219,7 @@
         @include mixins.center;
         position: relative;
         padding: variables.$space-2;
-       
+
         border: 0;
         border-radius: variables.radius("md");
         background: transparent;
@@ -151,9 +257,6 @@
             opacity: 1;
         }
 
-        &:focus-visible {
-            outline: none;
-            box-shadow: variables.shadow("focus");
-        }
+       
     }
 }

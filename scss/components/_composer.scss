@@ -48,9 +48,7 @@
             background: variables.$bg-hover-1;
         }
 
-        &:focus-visible {
-            box-shadow: variables.shadow("focus");
-        }
+       
     }
 
     &__attach-btn {
@@ -104,9 +102,7 @@
             color: variables.$text-primary;
         }
 
-        &:focus-visible {
-            box-shadow: variables.shadow("focus");
-        }
+      
     }
 
     &__model-menu {
@@ -182,18 +178,14 @@
         cursor: pointer;
         transition: background 0.15s ease;
 
-        &:hover:not(:disabled) {
-            background: variables.$accent-hover;
-        }
+       
 
         &:disabled {
 
             cursor: not-allowed;
         }
 
-        &:focus-visible {
-            box-shadow: variables.shadow("focus");
-        }
+        
     }
 
     
