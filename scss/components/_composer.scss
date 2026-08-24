@@ -5,7 +5,7 @@
     width: 100%;
     max-width: variables.$composer-max-width;
     margin: 0 auto;
-    padding: variables.$space-2;
+    padding: variables.$space-2 variables.$space-2;
     background: variables.$bg-secondary;
     border-radius: variables.radius("2xl");
     border: 1px solid variables.$border-default;
@@ -189,24 +189,14 @@
     }
 
     
-    &.is-generating {
-        .composer__send-btn {
-            background: variables.$text-primary;
-            color: variables.$bg-primary;
-        }
-
-        .composer__textarea {
-            opacity: 0.6;
-        }
-    }
-
+  
 
     &__attachment-chip {
         @include mixins.center($justifyContent: flex-start);
         gap: variables.$space-2;
         padding: variables.$space-2 variables.$space-3;
         background: variables.$bg-elevated;
-        border-radius: variables.radius("lg");
+        border-radius: variables.radius("full");
         font-size: variables.font-size("sm");
         color: variables.$text-primary;
         border: 1px solid variables.$border-subtle;

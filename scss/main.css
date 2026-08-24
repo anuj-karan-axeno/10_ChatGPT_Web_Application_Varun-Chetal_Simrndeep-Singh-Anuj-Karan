@@ -225,7 +225,7 @@
 
 .sidebar {
   background: #040000;
-  width: 280px;
+  width: 260px;
   flex-shrink: 0;
   display: flex;
   flex-direction: column;
@@ -450,6 +450,9 @@
 .sidebar__list[hidden] {
   display: none;
 }
+.sidebar__group-header + .sidebar__list {
+  flex-direction: column-reverse;
+}
 
 .sidebar-backdrop {
   display: none;
@@ -489,7 +492,7 @@
   width: 100%;
   max-width: 640px;
   margin: 0 auto;
-  padding: 0.5rem;
+  padding: 0.5rem 0.5rem;
   background: #1f1f1f;
   border-radius: 2rem;
   border: 1px solid #3d3d3d;
@@ -656,13 +659,6 @@
 .composer__send-btn:disabled {
   cursor: not-allowed;
 }
-.composer.is-generating .composer__send-btn {
-  background: #ececec;
-  color: #040000;
-}
-.composer.is-generating .composer__textarea {
-  opacity: 0.6;
-}
 .composer__attachment-chip {
   display: flex;
   flex-direction: row;
@@ -671,7 +667,7 @@
   gap: 0.5rem;
   padding: 0.5rem 0.75rem;
   background: #303030;
-  border-radius: 0.75rem;
+  border-radius: 9999px;
   font-size: 0.875rem;
   color: #ececec;
   border: 1px solid #2f2f2f;
@@ -753,6 +749,7 @@
   border: 0;
   background: transparent;
   color: #ececec;
+  cursor: pointer;
 }
 .chat__model-button {
   display: flex;
@@ -824,7 +821,7 @@
 .chat .composer {
   position: absolute;
   z-index: 1;
-  bottom: 2rem;
+  bottom: 1.5rem;
   left: 50%;
   width: calc(100% - 2rem);
   transform: translateX(-50%);
@@ -891,6 +888,9 @@
 .new-chat__suggestion:hover {
   background: #202020;
   color: #ececec;
+}
+.new-chat__suggestion-text {
+  font-size: 1rem;
 }
 .new-chat__suggestion-icon {
   display: flex;
@@ -1162,17 +1162,17 @@
   z-index: 10;
   inset: 0;
   padding: 1rem;
-  background: rgba(0, 0, 0, 0.6);
 }
 .search-modal__dialog {
-  width: min(100%, 48rem);
-  height: 90%;
+  width: min(100%, 44rem);
+  height: 80%;
   padding: 0.75rem;
   display: flex;
   flex-direction: column;
   overflow: hidden;
   border-radius: 1rem;
   background: #1f1f1f;
+  border: 1px solid #2f2f2f;
 }
 .search-modal__input-row {
   display: flex;
@@ -1254,7 +1254,6 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  scrollbar-width: thin;
   scrollbar-color: #343434 transparent;
 }
 

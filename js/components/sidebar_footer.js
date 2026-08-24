@@ -3,35 +3,26 @@ import { AppIcon } from "../utils/app_icon.js"
 
 const FOOTER_LIST_ITEMS = [
     {
-        label: 'Upgrade plan',
-        icon: 'message_circle'
-    },
-    {
-        label: 'Personalization',
-        icon: 'star'
-    },
-    {
         label: 'Profile',
         icon: 'profile'
     },
     {
-        label: 'Settings',
+        label: 'Appearance',
+        icon: 'star'
+    },
+    {
+        label: 'General',
         icon: 'settings'
     },
-
-
-]
-
-const FOOTER_LIST_BOTTOM_ITEMS = [
     {
-        label: 'Help',
-        icon: 'help'
+        label: 'Keyboard shortcuts',
+        icon: 'keyboard'
     },
     {
-        label: 'Logout',
-        icon: 'logout'
+        label: 'Notifications',
+        icon: 'bell'
     },
-]
+];
 
 export const renderSidebarFooterMenu = () => {
     const footer_account_el = document.querySelector('.sidebar__footer-account')
@@ -60,22 +51,6 @@ export const renderSidebarFooterMenu = () => {
     `
 
     FOOTER_LIST_ITEMS.forEach((item) => {
-        const list_item = document.createElement('li')
-        list_item.classList.add('sidebar__footer-menu__list')
-        list_item.innerHTML = `
-        
-        ${AppIcon({ iconName: item.icon })}
-        
-        <span>${item.label}</span>
-
-        `
-        sidebar_menu_el.append(list_item)
-    })
-    const separator = document.createElement('hr');
-    separator.className = 'sidebar__footer-menu__separator';
-    sidebar_menu_el.appendChild(separator);
-
-    FOOTER_LIST_BOTTOM_ITEMS.forEach((item) => {
         const list_item = document.createElement('li')
         list_item.classList.add('sidebar__footer-menu__list')
         list_item.innerHTML = `

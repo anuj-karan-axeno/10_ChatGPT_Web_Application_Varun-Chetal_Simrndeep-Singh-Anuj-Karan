@@ -56,6 +56,9 @@
             background: variables.$bg-hover-1;
             color: variables.$text-primary;
         }
+        &-text{
+            font-size: variables.$space-4
+        }
     }
 
     &__suggestion-icon {

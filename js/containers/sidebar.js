@@ -57,12 +57,21 @@ function bindEvents() {
     compactActionsEl.querySelector('.sidebar__compact-action--search').addEventListener('click', openSearch);
     mainActionsEl.addEventListener('click', handleNewChatClick);
     compactActionsEl.addEventListener('click', handleNewChatClick);
+    sidebarEl.addEventListener('click', hideMobileSidebarAfterItemClick);
 
 }
 
 function closeMobileSidebar() {
     sidebarEl.classList.remove('sidebar--mobile-open');
     document.querySelector('.sidebar-backdrop').classList.remove('sidebar-backdrop--visible');
+}
+
+function hideMobileSidebarAfterItemClick(event) {
+    const sidebarItem = event.target.closest('.sidebar__item, .sidebar__compact-action, .sidebar__group-action, .sidebar__search-btn');
+
+    if (sidebarItem) {
+        closeMobileSidebar();
+    }
 }
 
 function openSearch() {

@@ -49,7 +49,7 @@ function sendMessage(message) {
   } else {
     const newConversation = {
       id: `c${conversations.length + 1}`,
-      chat_title: message.split(' ').slice(0, 8).join(' '),
+      chat_title: message.split(' ').slice(0, 4).join(' '),
       date: new Date().toISOString(),
       messages: [{ role: 'user', content: message }],
     };

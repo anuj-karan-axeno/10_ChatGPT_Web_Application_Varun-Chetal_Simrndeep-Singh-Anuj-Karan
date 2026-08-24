@@ -249,6 +249,10 @@
 
     }
 
+    &__group-header + &__list {
+        flex-direction: column-reverse;
+    }
+
 
 }
 

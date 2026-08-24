@@ -30,6 +30,8 @@ export function setComposerGenerating(isGenerating) {
     composerEl.classList.toggle('is-generating', isGenerating);
     textareaEl.disabled = isGenerating;
     sendBtn.disabled = isGenerating;
+    sendBtn.setAttribute('aria-label', isGenerating ? 'Generating response' : 'Send message');
+    sendBtn.innerHTML = AppIcon({ iconName: isGenerating ? 'square' : 'arrow_up', size: 20 });
 }
 
 

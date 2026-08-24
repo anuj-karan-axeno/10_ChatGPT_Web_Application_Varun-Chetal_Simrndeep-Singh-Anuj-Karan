@@ -26,7 +26,7 @@
     .composer {
         position: absolute;
         z-index: 1;
-        bottom: variables.$space-8;
+        bottom: variables.$space-6;
         left: 50%;
         width: calc(100% - #{variables.$space-8});
         transform: translateX(-50%);
