@@ -91,17 +91,7 @@ All in `_variables.scss`:
 
 No random hardcoded values floating around — if I used something twice it became a token.
 
----
 
-## Breakpoints
-
-```scss
-$bp-sm:  480px;
-$bp-md:  768px;
-$bp-lg:  1024px;
-$bp-xl:  1280px;
-$bp-2xl: 1440px;
-```
 
 Tested at 375/390/414/768/1024/1280/1440/1728px. Sidebar goes fixed column (desktop) → collapsible (tablet) → full drawer (mobile). Didn't just shrink things down, sidebar especially needed a real rethink once it had no room to sit permanently.
 
@@ -141,9 +131,9 @@ Only `app.js` is loaded in `index.html` — everything else comes in through imp
 
 ## Known limitations
 
-- Search, model selector, and attachments are all fake — no real filtering/upload/model logic
+- Search, model selector, and attachments are all fake no real filtering/upload/model logic
 - Regenerate just swaps in another canned response, no real context awareness
-- Rename/delete update the UI but don't persist — refresh resets everything
+- Rename/delete update the UI but don't persist refresh resets everything
 - Settings panel exists but most toggles inside don't actually do anything yet
 - Only tested in Chrome so far
 
@@ -161,4 +151,4 @@ Only `app.js` is loaded in `index.html` — everything else comes in through imp
 
 ## Disclaimer
 
-Learning project only. No real AI, no OpenAI connection, not meant to be an actual product — just practice.
+Learning project only. No real AI, no OpenAI connection, not meant to be an actual product just practice.
