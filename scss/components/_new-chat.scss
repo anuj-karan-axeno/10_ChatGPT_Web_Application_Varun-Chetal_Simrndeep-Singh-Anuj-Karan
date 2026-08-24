@@ -1,0 +1,83 @@
+@use '../abstract/mixins' as mixins;
+@use '../abstract/variables' as variables;
+
+.chat__content--welcome {
+    @include mixins.center;
+
+    @media (max-width: 768px) {
+        padding: variables.$space-4 0;
+    }
+}
+
+.new-chat {
+    width: 100%;
+    max-width: variables.$composer-max-width;
+    text-align: center;
+
+    &__title {
+        color: variables.$text-primary;
+        font-size: variables.font-size('2xl');
+        font-weight: variables.font-weight('regular');
+    }
+
+    &__bottom {
+        margin-top: variables.$space-8;
+    }
+
+    &__composer .composer {
+        position: static;
+        width: 100%;
+        transform: none;
+    }
+
+    &__suggestions {
+       
+        @include mixins.center($flexDirection:column);
+        gap: variables.$space-2;
+        margin-top: variables.$space-3;
+
+        @media (max-width:768px) {
+            display: none;
+        }
+    }
+
+    &__suggestion {
+        @include mixins.center($justifyContent:flex-start);
+        gap: variables.$space-2;
+        padding: variables.$space-3;
+        border: 0;
+        border-radius: variables.radius('lg');
+        background: transparent;
+        color: variables.$text-secondary;
+        cursor: pointer;
+        width: 100%;
+
+        &:hover {
+            background: variables.$bg-hover-1;
+            color: variables.$text-primary;
+        }
+    }
+
+    &__suggestion-icon {
+        @include mixins.center;
+    }
+
+    @media (max-width: 768px) {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: variables.$space-8 variables.$space-4 variables.$space-4;
+
+        &__title {
+            font-size: variables.font-size('xl');
+        }
+
+        &__bottom {
+            width: 100%;
+            margin-top: 0;
+        }
+
+   }
+    
+}
