@@ -1,4 +1,3 @@
-import { mockConversations } from '../constant/mockConvoData.js';
 import { getConversationGroup } from '../utils/dateGroup.js'
 import { createSidebarItem } from '../components/sidebar_items.js'
 import { openSearchModal } from '../components/search_modal.js';
@@ -13,6 +12,7 @@ let mainActionsEl;
 let compactActionsEl;
 let onConversationSelect;
 let onNewChat;
+let conversations;
 
 
 const MAIN_ACTIONS = [
@@ -32,6 +32,7 @@ const COMPACT_ACTIONS = [
 export function initSidebar(callbacks = {}) {
     onConversationSelect = callbacks.onConversationSelect;
     onNewChat = callbacks.onNewChat;
+    conversations = callbacks.conversations;
 
     sidebarEl = document.querySelector('.sidebar');
     navEl = document.querySelector('.sidebar__nav');
@@ -43,7 +44,7 @@ export function initSidebar(callbacks = {}) {
     renderHeaderActions()
     renderMainActions()
     renderCompactActions()
-    renderConversationGroups(mockConversations)
+    renderConversationGroups(conversations)
     renderSidebarFooterMenu()
 
     bindEvents();
@@ -65,7 +66,7 @@ function closeMobileSidebar() {
 }
 
 function openSearch() {
-    openSearchModal(mockConversations, selectConversation);
+    openSearchModal(conversations, selectConversation);
 }
 
 function handleNewChatClick(event) {

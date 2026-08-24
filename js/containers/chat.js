@@ -7,8 +7,10 @@ let chatEl;
 let chatContentEl;
 let composerEl;
 let shareButton;
+let onSuggestedPrompt;
 
 export function initChat(callbacks = {}) {
+    onSuggestedPrompt = callbacks.onSuggestedPrompt;
     chatEl = document.querySelector('.chat');
 
     if (!chatEl) return;
@@ -75,20 +77,19 @@ export function showNewChat() {
 
     shareButton.hidden = true;
     chatContentEl.classList.add('chat__content--welcome');
-    renderNewChat(chatContentEl, composerEl);
+    renderNewChat(chatContentEl, composerEl, onSuggestedPrompt);
 }
 
-export function renderChatMessages(messages, isGenerating = false) {
+export function renderChatMessages(messages, isGenerating = false, showLoading = false) {
     if (!chatContentEl || !composerEl) return;
 
     shareButton.hidden = false;
-    // Put the composer back at the bottom before clearing the welcome screen.
     chatEl.append(composerEl);
     chatContentEl.classList.remove('chat__content--welcome');
 
     const messagesEl = createMessages(messages);
 
-    if (isGenerating) {
+    if (showLoading) {
         messagesEl.append(createLoadingMessage());
     }
 

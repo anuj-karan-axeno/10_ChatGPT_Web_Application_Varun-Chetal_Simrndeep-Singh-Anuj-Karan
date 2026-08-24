@@ -1,4 +1,4 @@
-// Each icon stores only its drawing paths. AppIcon adds the shared <svg> tag.
+
 const iconPaths = {
     new_chat: `
         <path d="M12 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />

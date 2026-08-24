@@ -383,12 +383,12 @@
 .sidebar__mobile-close-btn {
   display: none;
 }
-@media (max-width: 767px) {
+@media (max-width: 768px) {
   .sidebar__mobile-close-btn {
     display: flex;
   }
 }
-@media (max-width: 767px) {
+@media (max-width: 768px) {
   .sidebar__collapse-btn {
     display: none;
   }
@@ -454,7 +454,7 @@
 .sidebar-backdrop {
   display: none;
 }
-@media (max-width: 767px) {
+@media (max-width: 768px) {
   .sidebar-backdrop {
     display: block;
     position: fixed;
@@ -471,7 +471,7 @@
   }
 }
 
-@media (max-width: 767px) {
+@media (max-width: 768px) {
   .sidebar {
     display: flex;
     position: fixed;

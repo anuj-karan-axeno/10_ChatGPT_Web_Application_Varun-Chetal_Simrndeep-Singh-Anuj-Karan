@@ -99,8 +99,6 @@ export function createSidebarItem(convo, onConversationSelect) {
     const moreButton = listItem.querySelector('.sidebar__more-btn');
     const menu = listItem.querySelector('.sidebar__chat-menu');
 
-    // A menu inside .sidebar is clipped by its vertical scrolling overflow.
-    // Moving it to body lets it extend into the chat area.
     document.body.appendChild(menu);
 
     moreButton.addEventListener('click', (event) => {

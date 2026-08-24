@@ -179,13 +179,13 @@
     &__mobile-close-btn {
         display: none;
 
-        @media (max-width: 767px) {
+        @media (max-width: 768px) {
             display: flex;
         }
     }
 
     &__collapse-btn {
-        @media (max-width: 767px) {
+        @media (max-width: 768px) {
             display: none;
         }
     }
@@ -255,7 +255,7 @@
 .sidebar-backdrop {
     display: none;
 
-    @media (max-width: 767px) {
+    @media (max-width: 768px) {
         display: block;
         position: fixed;
         z-index: 10;
@@ -272,7 +272,7 @@
     }
 }
 
-@media (max-width: 767px) {
+@media (max-width: 768px) {
     .sidebar {
         display: flex;
         position: fixed;

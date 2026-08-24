@@ -1,7 +1,5 @@
-// js/data/mockConversations.js
-
 export const mockConversations = [
-    // ---- CODE example ----
+    
     {
         id: "c1",
         chat_title: "Correct Answer Variable",
@@ -28,7 +26,6 @@ export const mockConversations = [
         ],
     },
 
-    // ---- LIST + TABLE + CODE + LINK example (the richest one) ----
     {
         id: "c2",
         chat_title: "CSS Grid vs Flexbox",
@@ -74,7 +71,6 @@ export const mockConversations = [
         ],
     },
 
-    // ---- PARAGRAPH only (short, simple exchange) ----
     {
         id: "c3",
         chat_title: "Debugging null reference error",
@@ -97,7 +93,6 @@ export const mockConversations = [
         ],
     },
 
-    // ---- LIST (ordered, sequential steps) ----
     {
         id: "c4",
         chat_title: "Trip planning ideas",
@@ -136,7 +131,6 @@ export const mockConversations = [
         ],
     },
 
-    // ---- PARAGRAPH, long repetitive thread (deliberate stress-test conversation) ----
     {
         id: "c5",
         chat_title: "Resume feedback",
@@ -159,7 +153,6 @@ export const mockConversations = [
         ],
     },
 
-    // ---- LIST (steps) + no code needed for a recipe ----
     {
         id: "c6",
         chat_title: "Recipe suggestions",
@@ -192,7 +185,6 @@ export const mockConversations = [
         ],
     },
 
-    // ---- CODE (concept explanation with working example) ----
     {
         id: "c7",
         chat_title: "JavaScript closures explained",
@@ -218,7 +210,6 @@ export const mockConversations = [
         ],
     },
 
-    // ---- TABLE (structured comparison across days) ----
     {
         id: "c8",
         chat_title: "Workout routine for beginners",
@@ -249,7 +240,6 @@ export const mockConversations = [
         ],
     },
 
-    // ---- CODE (before/after comparison) ----
     {
         id: "c9",
         chat_title: "Old JS question",
@@ -268,7 +258,6 @@ export const mockConversations = [
         ],
     },
 
-    // ---- LIST + LINK ----
     {
         id: "c10",
         chat_title: "Interview prep notes",

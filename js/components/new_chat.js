@@ -6,7 +6,7 @@ const SUGGESTED_PROMPTS = [
     'Give me ideas for a healthy dinner',
 ];
 
-export function showNewChat(chatContentEl, composerEl) {
+export function showNewChat(chatContentEl, composerEl, onSuggestedPrompt) {
     const newChatEl = document.createElement('div');
     newChatEl.className = 'new-chat';
     newChatEl.innerHTML = `
@@ -29,5 +29,11 @@ export function showNewChat(chatContentEl, composerEl) {
     `;
 
     newChatEl.querySelector('.new-chat__composer').append(composerEl);
+    newChatEl.querySelectorAll('.new-chat__suggestion').forEach((button, index) => {
+        button.addEventListener('click', () => {
+            onSuggestedPrompt?.(SUGGESTED_PROMPTS[index]);
+        });
+    });
+
     chatContentEl.replaceChildren(newChatEl);
 }

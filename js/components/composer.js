@@ -79,7 +79,6 @@ function renderComposer() {
         </div>
     `;
 
-    // grab references AFTER innerHTML is set — they don't exist before this point
     textareaEl  = composerEl.querySelector('.composer__textarea');
     sendBtn     = composerEl.querySelector('.composer__send-btn');
     attachBtn   = composerEl.querySelector('.composer__attach-btn');
@@ -188,7 +187,6 @@ function addAttachmentPreview(file) {
     chip.querySelector('.composer__attachment-remove')
         .addEventListener('click', () => chip.remove());
 
-    // fake upload delay
     setTimeout(() => {
         chip.classList.remove('composer__attachment-chip--uploading');
         chip.classList.add('composer__attachment-chip--done');
