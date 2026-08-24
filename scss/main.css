@@ -380,6 +380,19 @@
 .sidebar__icon-btn:hover {
   background: #202020;
 }
+.sidebar__mobile-close-btn {
+  display: none;
+}
+@media (max-width: 767px) {
+  .sidebar__mobile-close-btn {
+    display: flex;
+  }
+}
+@media (max-width: 767px) {
+  .sidebar__collapse-btn {
+    display: none;
+  }
+}
 .sidebar__compact-action {
   display: flex;
   flex-direction: row;
@@ -438,6 +451,40 @@
   display: none;
 }
 
+.sidebar-backdrop {
+  display: none;
+}
+@media (max-width: 767px) {
+  .sidebar-backdrop {
+    display: block;
+    position: fixed;
+    z-index: 10;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+  }
+  .sidebar-backdrop--visible {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
+@media (max-width: 767px) {
+  .sidebar {
+    display: flex;
+    position: fixed;
+    z-index: 11;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    transform: translateX(-100%);
+  }
+  .sidebar--mobile-open {
+    transform: translateX(0);
+  }
+}
 .composer {
   width: 100%;
   max-width: 640px;
@@ -774,6 +821,16 @@
   overflow-x: hidden;
   padding: 1rem;
 }
+.chat .composer {
+  position: absolute;
+  z-index: 1;
+  bottom: 2rem;
+  left: 50%;
+  width: calc(100% - 2rem);
+  transform: translateX(-50%);
+  overflow: visible;
+}
+
 .chat__content--welcome {
   display: flex;
   flex-direction: row;
@@ -785,48 +842,79 @@
     padding: 1rem 0;
   }
 }
-.chat__welcome {
+
+.new-chat {
   width: 100%;
+  max-width: 640px;
   text-align: center;
 }
+.new-chat__title {
+  color: #ececec;
+  font-size: 2rem;
+  font-weight: 400;
+}
+.new-chat__bottom {
+  margin-top: 2rem;
+}
+.new-chat__composer .composer {
+  position: static;
+  width: 100%;
+  transform: none;
+}
+.new-chat__suggestions {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
 @media (max-width: 768px) {
-  .chat__welcome {
+  .new-chat__suggestions {
+    display: none;
+  }
+}
+.new-chat__suggestion {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  border: 0;
+  border-radius: 0.75rem;
+  background: transparent;
+  color: #b4b4b4;
+  cursor: pointer;
+  width: 100%;
+}
+.new-chat__suggestion:hover {
+  background: #202020;
+  color: #ececec;
+}
+.new-chat__suggestion-icon {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+@media (max-width: 768px) {
+  .new-chat {
     height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    align-items: center;
+    padding: 2rem 1rem 1rem;
   }
-}
-.chat__welcome__text {
-  color: #ececec;
-  font-weight: 400;
-  font-size: 2rem;
-}
-.chat .composer {
-  position: absolute;
-  z-index: 1;
-  bottom: 2rem;
-  left: 50%;
-  width: calc(100% - 2rem);
-  transform: translateX(-50%);
-  overflow: visible;
-}
-.chat__content--welcome .composer {
-  position: static;
-  width: 100%;
-  margin-top: 2rem;
-  transform: none;
-}
-
-@media (max-width: 767px) {
-  .sidebar {
-    display: none;
-  }
-  .chat__welcome__text {
+  .new-chat__title {
     font-size: 1.5rem;
   }
+  .new-chat__bottom {
+    width: 100%;
+    margin-top: 0;
+  }
 }
+
 .chat__messages {
   display: grid;
   max-width: 640px;
@@ -836,6 +924,7 @@
 .chat__message {
   width: -moz-fit-content;
   width: fit-content;
+  min-width: 0;
   height: -moz-fit-content;
   height: fit-content;
   border-radius: 2rem;
@@ -849,6 +938,7 @@
   justify-content: center;
   align-items: flex-start;
   gap: 1rem;
+  overflow-wrap: anywhere;
 }
 .chat__message--user {
   max-width: 70%;
@@ -1050,7 +1140,19 @@
 .chat__message-action:hover::after, .chat__message-action:focus-visible::after {
   opacity: 1;
 }
+.chat__loading-message {
+  width: 1rem;
+  height: 1rem;
+  border-radius: 9999px;
+  background: #264B88;
+  animation: loading-pulse 1s infinite;
+}
 
+@keyframes loading-pulse {
+  50% {
+    opacity: 0.4;
+  }
+}
 .search-modal {
   display: flex;
   flex-direction: row;

@@ -8,12 +8,9 @@
         @include mixins.sidebar-action;
         gap: variables.$space-2;
         color: variables.$text-primary;
-
-
         &:hover,
         &:focus-within {
             background: variables.$bg-hover-1;
-
             .sidebar__item-actions {
                 opacity: 1;
                 pointer-events: auto;

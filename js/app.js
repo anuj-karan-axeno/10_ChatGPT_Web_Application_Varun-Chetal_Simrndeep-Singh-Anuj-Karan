@@ -3,6 +3,7 @@ import { initChat, renderChatMessages, showNewChat } from './containers/chat.js'
 import { mockConversations } from './constant/mockConvoData.js';
 
 let currentConversation;
+const DUMMY_RESPONSE = 'This is a dummy response. Your real AI response will appear here later.';
 
 function renderChatFromUrl() {
   const chatId = new URLSearchParams(window.location.search).get('chatId');
@@ -42,22 +43,26 @@ function setChatId(chatId) {
 function sendMessage(message) {
   if (currentConversation) {
     currentConversation.messages.push({ role: 'user', content: message });
-    renderChatMessages(currentConversation.messages);
-    return;
+  } else {
+    const newConversation = {
+      id: `c${mockConversations.length + 1}`,
+      chat_title: message.split(' ').slice(0, 8).join(' '),
+      date: new Date().toISOString(),
+      messages: [{ role: 'user', content: message }],
+    };
+
+    mockConversations.push(newConversation);
+    currentConversation = newConversation;
+    renderConversationGroups(mockConversations, newConversation.id);
+    setChatId(newConversation.id);
   }
 
-  const newConversation = {
-    id: `c${mockConversations.length + 1}`,
-    chat_title: message.split(' ').slice(0, 8).join(' '),
-    date: new Date().toISOString(),
-    messages: [{ role: 'user', content: message }],
-  };
+  renderChatMessages(currentConversation.messages, true);
 
-  mockConversations.push(newConversation);
-  currentConversation = newConversation;
-  renderConversationGroups(mockConversations, newConversation.id);
-  setChatId(newConversation.id);
-  renderChatMessages(newConversation.messages);
+  setTimeout(() => {
+    currentConversation.messages.push({ role: 'assistant', content: DUMMY_RESPONSE });
+    renderChatMessages(currentConversation.messages);
+  }, 1000);
 }
 
 document.addEventListener('DOMContentLoaded', () => {

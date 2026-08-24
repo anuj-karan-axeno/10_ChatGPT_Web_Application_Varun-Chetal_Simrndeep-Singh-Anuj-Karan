@@ -1,5 +1,6 @@
-import { initComposer } from '../components/composer.js';
-import { createMessages } from '../components/messages.js';
+import { initComposer, setComposerGenerating } from '../components/composer.js';
+import { createLoadingMessage, createMessages } from '../components/messages.js';
+import { showNewChat as renderNewChat } from '../components/new_chat.js';
 import { AppIcon } from '../utils/app_icon.js';
 
 let chatEl;
@@ -54,6 +55,9 @@ export function initChat(callbacks = {}) {
     composerEl = chatEl.querySelector('.composer');
     shareButton = chatEl.querySelector('.chat__share-button');
 
+    chatEl.querySelector('.chat__menu-button').addEventListener('click', toggleMobileSidebar);
+    document.querySelector('.sidebar-backdrop').addEventListener('click', toggleMobileSidebar);
+
     shareButton.addEventListener('click', () => {
         navigator.clipboard.writeText(window.location.href);
     });
@@ -61,25 +65,20 @@ export function initChat(callbacks = {}) {
     showNewChat();
 }
 
-// Shows the first screen before the user opens a conversation.
+function toggleMobileSidebar() {
+    document.querySelector('.sidebar').classList.toggle('sidebar--mobile-open');
+    document.querySelector('.sidebar-backdrop').classList.toggle('sidebar-backdrop--visible');
+}
+
 export function showNewChat() {
     if (!chatContentEl || !composerEl) return;
 
     shareButton.hidden = true;
     chatContentEl.classList.add('chat__content--welcome');
-    chatContentEl.innerHTML = `
-        <div class="chat__welcome">
-        <div></div>
-            <h1 class="chat__welcome__text">Ready when you are.</h1>
-        </div>
-    `;
-
-    // New Chat keeps the welcome text and composer together in the center.
-    chatContentEl.querySelector('.chat__welcome').append(composerEl);
+    renderNewChat(chatContentEl, composerEl);
 }
 
-// Call this when a conversation is selected from the sidebar.
-export function renderChatMessages(messages) {
+export function renderChatMessages(messages, isGenerating = false) {
     if (!chatContentEl || !composerEl) return;
 
     shareButton.hidden = false;
@@ -87,5 +86,13 @@ export function renderChatMessages(messages) {
     chatEl.append(composerEl);
     chatContentEl.classList.remove('chat__content--welcome');
 
-    chatContentEl.replaceChildren(createMessages(messages));
+    const messagesEl = createMessages(messages);
+
+    if (isGenerating) {
+        messagesEl.append(createLoadingMessage());
+    }
+
+    chatContentEl.replaceChildren(messagesEl);
+    setComposerGenerating(isGenerating);
+    chatContentEl.scrollTop = chatContentEl.scrollHeight;
 }

@@ -1,4 +1,3 @@
-// js/utils/dateGroup.js
 
 function startOfDay(date) {
     const d = new Date(date);

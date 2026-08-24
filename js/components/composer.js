@@ -26,6 +26,12 @@ export function initComposer(callbacks = {}) {
     bindEvents();
 }
 
+export function setComposerGenerating(isGenerating) {
+    composerEl.classList.toggle('is-generating', isGenerating);
+    textareaEl.disabled = isGenerating;
+    sendBtn.disabled = isGenerating;
+}
+
 
 function renderComposer() {
     composerEl.innerHTML = `
@@ -104,7 +110,7 @@ function handleInput() {
 }
 
 function autoGrow() {
-   
+    textareaEl.style.height = 'auto';
     textareaEl.style.height = Math.min(textareaEl.scrollHeight, MAX_TEXTAREA_HEIGHT) + 'px';
 }
 

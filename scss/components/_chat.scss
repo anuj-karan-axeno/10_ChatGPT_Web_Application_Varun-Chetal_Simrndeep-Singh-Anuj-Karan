@@ -21,31 +21,6 @@
         overflow-x: hidden;
         padding: variables.$space-4;
 
-        &--welcome {
-            @include mixins.center;
-
-            @media (max-width:768px) {
-                padding: variables.$space-4 0;
-            }
-        }
-    }
-
-    &__welcome {
-        width: 100%;
-        text-align: center;
-
-        @media (max-width:768px) {
-            height: 100%;
-            @include mixins.center($flexDirection: column, $justifyContent: space-between)
-        }
-
-        &__text {
-            color: variables.$text-primary;
-            font-weight: variables.font-weight('regular');
-            font-size: variables.font-size("2xl");
-        }
-
-
     }
 
     .composer {
@@ -58,24 +33,4 @@
         overflow: visible;
     }
 
-    &__content--welcome .composer {
-        position: static;
-        width: 100%;
-        margin-top: variables.$space-8;
-        transform: none;
-    }
-
-}
-
-@media (max-width: 767px) {
-    .sidebar {
-        display: none;
-    }
-
-    .chat {
-
-        &__welcome__text {
-            font-size: variables.font-size("xl");
-        }
-    }
 }

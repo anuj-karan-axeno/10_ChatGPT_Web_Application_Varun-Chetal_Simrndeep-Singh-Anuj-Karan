@@ -195,3 +195,10 @@ export function createMessages(messages) {
 
     return messagesEl;
 }
+
+export function createLoadingMessage() {
+    const loadingEl = document.createElement('div');
+    loadingEl.className = 'chat__loading-message';
+    loadingEl.setAttribute('aria-label', 'Assistant is generating a response');
+    return loadingEl;
+}

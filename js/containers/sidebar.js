@@ -15,7 +15,6 @@ let onConversationSelect;
 let onNewChat;
 
 
-const GROUP_ORDER = ["Today", "Yesterday", "Previous 7 days", "Older"];
 const MAIN_ACTIONS = [
     { icon: 'new_chat', label: 'New Chat' },
     { icon: 'images', label: 'Images' },
@@ -53,10 +52,16 @@ export function initSidebar(callbacks = {}) {
 function bindEvents() {
     collapseBtn.addEventListener('click', toggleCollapse);
     headerActionsEl.querySelector('.sidebar__search-btn').addEventListener('click', openSearch);
+    headerActionsEl.querySelector('.sidebar__mobile-close-btn').addEventListener('click', closeMobileSidebar);
     compactActionsEl.querySelector('.sidebar__compact-action--search').addEventListener('click', openSearch);
     mainActionsEl.addEventListener('click', handleNewChatClick);
     compactActionsEl.addEventListener('click', handleNewChatClick);
 
+}
+
+function closeMobileSidebar() {
+    sidebarEl.classList.remove('sidebar--mobile-open');
+    document.querySelector('.sidebar-backdrop').classList.remove('sidebar-backdrop--visible');
 }
 
 function openSearch() {
@@ -77,6 +82,9 @@ function renderHeaderActions() {
         </button>
         <button class="sidebar__icon-btn sidebar__collapse-btn" aria-label="Collapse sidebar"  aria-expanded="true">
                 ${AppIcon({ iconName: 'collapse' })}
+        </button>
+        <button class="sidebar__icon-btn sidebar__mobile-close-btn" type="button" aria-label="Close sidebar">
+                ${AppIcon({ iconName: 'x' })}
         </button>
     `;
     collapseBtn = headerActionsEl.querySelector('.sidebar__collapse-btn');
@@ -107,21 +115,23 @@ function renderCompactActions() {
        
     `;
 }
-function groupByDate(conversations) {
-    const groups = { "Today": [], "Yesterday": [], "Previous 7 days": [], "Older": [] };
-    conversations.forEach((convo) => {
-        groups[getConversationGroup(convo.date)].push(convo);
-    });
-    return groups;
-}
 export function renderConversationGroups(conversations, selectedChatId) {
-    const groups = groupByDate(conversations);
+    const groups = {
+        Today: [],
+        Yesterday: [],
+        "Previous 7 days": [],
+        Older: [],
+    };
+
+    conversations.forEach((conversation) => {
+        const groupName = getConversationGroup(conversation.date);
+        groups[groupName].push(conversation);
+    });
 
     document.querySelectorAll('.sidebar__chat-menu').forEach((menu) => menu.remove());
     navEl.innerHTML = '';
 
-    GROUP_ORDER.forEach((groupName) => {
-        const items = groups[groupName];
+    Object.entries(groups).forEach(([groupName, items]) => {
         if (items.length === 0) return;
 
         navEl.appendChild(buildGroupElement(groupName, items));

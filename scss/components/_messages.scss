@@ -11,6 +11,7 @@
 
     &__message {
         width: fit-content;
+        min-width: 0;
         height: fit-content;
         border-radius: variables.radius("2xl");
         color: variables.$text-primary;
@@ -20,6 +21,7 @@
         &-content {
             @include mixins.center($flexDirection: column, $alignItems: flex-start);
             gap: variables.$space-4;
+            overflow-wrap: anywhere;
         }
 
         &--user {
@@ -258,5 +260,19 @@
         }
 
        
+    }
+
+    &__loading-message {
+        width: variables.$space-4;
+        height: variables.$space-4;
+        border-radius: variables.radius("full");
+        background: variables.$info;
+        animation: loading-pulse 1s infinite;
+    }
+}
+
+@keyframes loading-pulse {
+    50% {
+        opacity: 0.4;
     }
 }

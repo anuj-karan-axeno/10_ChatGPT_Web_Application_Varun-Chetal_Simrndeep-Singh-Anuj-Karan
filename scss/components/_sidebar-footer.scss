@@ -9,7 +9,6 @@
     flex-shrink: 0;
     position: relative;
 
-
     &-account {
         @include mixins.center($justifyContent: space-between);
         gap: variables.$space-3;
@@ -26,7 +25,6 @@
     &-info {
         @include mixins.center();
         gap: variables.$space-2;
-
     }
 
     &-avatar {
@@ -70,8 +68,6 @@
         &:hover {
             background: variables.$bg-hover-2;
         }
-
-
     }
 
     &-menu {
@@ -92,7 +88,6 @@
             border-radius: variables.radius('lg');
             font-size: variables.font-size('sm');
             cursor: pointer;
-
             &:hover {
 
                 background-color: variables.$border-strong;
@@ -112,6 +107,5 @@
             display: none;
         }
 
-       
     }
 }

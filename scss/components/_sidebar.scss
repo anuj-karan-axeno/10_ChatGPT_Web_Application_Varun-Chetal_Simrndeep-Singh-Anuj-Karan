@@ -176,6 +176,20 @@
 
     }
 
+    &__mobile-close-btn {
+        display: none;
+
+        @media (max-width: 767px) {
+            display: flex;
+        }
+    }
+
+    &__collapse-btn {
+        @media (max-width: 767px) {
+            display: none;
+        }
+    }
+
     &__compact-action {
         @include mixins.center;
         background: transparent;
@@ -236,4 +250,40 @@
     }
 
 
+}
+
+.sidebar-backdrop {
+    display: none;
+
+    @media (max-width: 767px) {
+        display: block;
+        position: fixed;
+        z-index: 10;
+        inset: 0;
+        background: variables.$overlay;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.25s ease;
+
+        &--visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+    }
+}
+
+@media (max-width: 767px) {
+    .sidebar {
+        display: flex;
+        position: fixed;
+        z-index: 11;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        transform: translateX(-100%);
+
+        &--mobile-open {
+            transform: translateX(0);
+        }
+    }
 }

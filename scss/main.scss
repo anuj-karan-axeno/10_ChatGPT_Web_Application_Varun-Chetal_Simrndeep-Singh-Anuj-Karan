@@ -1,5 +1,6 @@
 @use './components/sidebar';
 @use './components/chat';
+@use './components/new-chat';
 @use './components/messages';
 @use './components/search-modal';
 @use './abstract/variables' as variables;
@@ -15,7 +16,7 @@
 *:focus-visible {
   outline: 2px solid variables.$text-secondary;
   background-color: variables.$bg-secondary;
-//   border-radius: 4px;
+
   
 }
 
