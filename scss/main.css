@@ -981,6 +981,9 @@
 .chat__message-wrapper--assistant {
   align-items: flex-start;
 }
+.chat__message-wrapper--generating .chat__message-actions {
+  display: none;
+}
 .chat__message-actions {
   display: flex;
   flex-direction: row;

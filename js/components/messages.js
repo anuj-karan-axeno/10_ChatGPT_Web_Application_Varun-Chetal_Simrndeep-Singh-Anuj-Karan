@@ -118,9 +118,9 @@ export function createMessages(messages) {
     messagesEl.className = 'chat__messages';
     messagesEl.setAttribute('aria-label', 'Conversation messages');
 
-    messages.forEach(({ role, content }) => {
+    messages.forEach(({ role, content, isGenerating }) => {
         const messageWrapperEl = document.createElement('article');
-        messageWrapperEl.className = `chat__message-wrapper chat__message-wrapper--${role}`;
+        messageWrapperEl.className = `chat__message-wrapper chat__message-wrapper--${role}${isGenerating ? ' chat__message-wrapper--generating' : ''}`;
 
         const messageEl = document.createElement('div');
         messageEl.className = `chat__message chat__message--${role}`;

@@ -70,6 +70,10 @@
         &--assistant {
             align-items: flex-start;
         }
+
+        &--generating .chat__message-actions {
+            display: none;
+        }
     }
 
     &__message-actions {

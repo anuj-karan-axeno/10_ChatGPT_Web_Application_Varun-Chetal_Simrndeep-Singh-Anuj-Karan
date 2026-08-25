@@ -65,7 +65,7 @@ function sendMessage(message) {
 
   streamFakeResponse(DUMMY_RESPONSE, {
     onStart: () => {
-      conversation.messages.push({ role: 'assistant', content: '' });
+      conversation.messages.push({ role: 'assistant', content: '', isGenerating: true });
     },
     onUpdate: (message) => {
       const response = conversation.messages[conversation.messages.length - 1];
@@ -73,6 +73,8 @@ function sendMessage(message) {
       renderChatMessages(conversation.messages, true);
     },
     onComplete: () => {
+      const response = conversation.messages[conversation.messages.length - 1];
+      response.isGenerating = false;
       saveConversations(conversations);
       renderChatMessages(conversation.messages);
     },
