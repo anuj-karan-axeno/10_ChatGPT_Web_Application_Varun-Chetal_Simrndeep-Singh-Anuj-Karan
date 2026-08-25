@@ -57,7 +57,7 @@ export const renderSidebarFooterMenu = () => {
         
         ${AppIcon({ iconName: item.icon })}
         
-        <span>${item.label}</span>
+        <span class="sidebar__footer-menu-label">${item.label}</span>
 
         `
         sidebar_menu_el.append(list_item)

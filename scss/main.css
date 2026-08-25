@@ -252,6 +252,12 @@
 .sidebar--collapsed .sidebar__footer-upgrade {
   display: none;
 }
+.sidebar--collapsed .sidebar__footer-menu-label {
+  display: none;
+}
+.sidebar--collapsed .sidebar__footer-menu__list {
+  justify-content: center;
+}
 .sidebar--collapsed .sidebar__footer {
   justify-content: center;
 }
