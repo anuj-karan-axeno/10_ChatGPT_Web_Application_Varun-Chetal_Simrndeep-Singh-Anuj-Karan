@@ -23,10 +23,12 @@
 
     &__row {
         @include mixins.center($justifyContent: flex-start);
+        flex-wrap: wrap;
         gap: variables.$space-2;
         width: 100%;
-
+        overflow: hidden;
         transition: border-color 0.15s ease;
+      
 
         &:focus-within {
             border-color: variables.$border-strong;
@@ -68,7 +70,7 @@
         font-family: variables.$font-family-base;
         font-size: variables.font-size("md");
         line-height: variables.line-height("normal");
-        padding: variables.$space-2 0;
+        padding: variables.$space-2 variables.$space-1;
 
         &::placeholder {
             color: variables.$text-tertiary;
@@ -186,6 +188,22 @@
         }
 
         
+    }
+
+    &--expanded {
+        .composer__textarea {
+            order: 1;
+            flex-basis: 100%;
+        }
+
+        .composer__attach-btn {
+            order: 2;
+        }
+
+        .composer__model-selector {
+            order: 3;
+            margin-left: auto;
+        }
     }
 
     

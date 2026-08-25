@@ -11,6 +11,7 @@ let fileInputEl;
 let onSendMessage;
 
 const MAX_TEXTAREA_HEIGHT = 200;
+const EXPANDED_COMPOSER_LENGTH = 50;
 const MODELS = [
     { name: 'GPT-5 nano', description: 'Fastest and lowest cost' },
     { name: 'GPT-5 mini', description: 'Fast and cost-efficient' },
@@ -111,8 +112,13 @@ function handleInput() {
 }
 
 function autoGrow() {
+    const isLongMessage = textareaEl.value.length > EXPANDED_COMPOSER_LENGTH || textareaEl.value.includes('\n');
+    composerEl.classList.toggle('composer--expanded', isLongMessage);
+
     textareaEl.style.height = 'auto';
+    const isTooTall = textareaEl.scrollHeight > MAX_TEXTAREA_HEIGHT;
     textareaEl.style.height = Math.min(textareaEl.scrollHeight, MAX_TEXTAREA_HEIGHT) + 'px';
+    textareaEl.style.overflowY = isTooTall ? 'auto' : 'hidden';
 }
 
 function toggleSendButton() {

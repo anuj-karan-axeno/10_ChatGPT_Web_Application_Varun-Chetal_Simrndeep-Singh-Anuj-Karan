@@ -30,7 +30,7 @@
         left: 50%;
         width: calc(100% - #{variables.$space-8});
         transform: translateX(-50%);
-        overflow: visible;
+        overflow: hidden;
     }
 
 }
